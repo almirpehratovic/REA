@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:spring="http://www.springframework.org/tags"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    
+    <spring:message code="label_pizza_list" var="labelPizzaList" />
+    <spring:message code="label_pizza_name" var="labelPizzaName" />
+    <spring:message code="label_pizza_fat" var="labelPizzaFat" />
+    <spring:message code="label_pizza_packaging" var="labelPizzaPackaging" />
+    <spring:message code="label_pizza_quantity" var="labelPizzaQuantity" />
+    <spring:message code="label_pizza_stock" var="labelPizzaStock" />
+    
+    <spring:message code="label_cash_list" var="labelCashList" />
+    <spring:message code="label_cash_name" var="labelCashName" />
+    <spring:message code="label_cash_currency" var="labelCashCurrency" />
+    <spring:message code="label_cash_quantity" var="labelCashQuantity" />
+    <spring:message code="label_cash_stock" var="labelCashStock" />
+    
+    <spring:message code="label_customer_list" var="labelCustomerList" />
+    <spring:message code="label_customer_name" var="labelCustomerName" />
+    <spring:message code="label_customer_address" var="labelCustomerAddress" />
+    <spring:message code="label_customer_age" var="labelCustomerAge" />
+    
+    <spring:message code="label_sale_list" var="labelSaleList" />
+    <spring:message code="label_sale_date" var="labelSaleDate" />
+    <spring:message code="label_sale_provider" var="labelSaleProvider" />
+    <spring:message code="label_sale_receiver" var="labelSaleReceiver" />
+    <spring:message code="label_sale_resource" var="labelSaleResource" />
+    <spring:message code="label_sale_quantity" var="labelSaleQuantity" />
+    
+    <h1>${labelPizzaList}</h1>
+    
+    <c:if test="${not empty pizzas}">
+    	<table border="1">
+    		<thead>
+    			<tr>
+    				<th>${labelPizzaName}</th>
+    				<th>${labelPizzaFat}</th>
+    				<th>${labelPizzaPackaging}</th>
+    				<th>${labelPizzaQuantity}</th>
+    				<th>${labelPizzaStock}</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<c:forEach items="${pizzas}" var="pizza">
+    				<tr>
+    					<td>
+    						<sec:authorize access="hasRole('ROLE_USER')">
+    							<a href="pizzeria/pizza/${pizza.id}?form">${pizza.name}</a>
+    						</sec:authorize>
+    						<sec:authorize access="isAnonymous()">
+    							${pizza.name}
+    						</sec:authorize>
+    					</td>
+    					<td>${pizza.fat}</td>
+    					<td>${pizza.packaging}</td>
+    					<td>${pizza.quantity}</td>	
+    					<td>${pizza.stockQuantity}</td>
+    				</tr>
+    			</c:forEach>
+    		</tbody>
+    	</table>
+    </c:if>
+    
+    <h1>${labelCashList}</h1>
+    
+    <c:if test="${not empty cash}">
+    	<table border="1">
+    		<thead>
+    			<tr>
+    				<th>${labelCashName}</th>
+    				<th>${labelCashCurrency}</th>
+    				<th>${labelCashQuantity}</th>
+    				<th>${labelCashStock}</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<c:forEach items="${cash}" var="c">
+    				<tr>
+    					<td>${c.name}</td>
+    					<td>${c.currency}</td>
+    					<td>${c.quantity}</td>	
+    					<td>${c.stockQuantity}</td>
+    				</tr>
+    			</c:forEach>
+    		</tbody>
+    	</table>
+    </c:if>
+    
+    <h1>${labelCustomerList}</h1>
+    
+    <c:if test="${not empty customers}">
+    	<table border="1">
+    		<thead>
+    			<tr>
+    				<th>${labelCustomerName}</th>
+    				<th>${labelCustomerAddress}</th>
+    				<th>${labelCustomerAge}</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<c:forEach items="${customers}" var="c">
+    				<tr>
+    					<td>${c.name}</td>
+    					<td>${c.address}</td>
+    					<td>${c.age}</td>	
+    				</tr>
+    			</c:forEach>
+    		</tbody>
+    	</table>
+    </c:if>
+    
+    <h1>${labelSaleList}</h1>
+    
+    <c:if test="${not empty sales}">
+    	<table border="1">
+    		<thead>
+    			<tr>
+    				<th>+/-</th>
+    				<th>${labelSaleDate}</th>
+    				<th>${labelSaleProvider}</th>
+    				<th>${labelSaleReceiver}</th>
+    				<th>${labelSaleResource}</th>
+    				<th>${labelSaleQuantity}</th>
+    				<th>${labelCashName}</th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<c:forEach items="${sales}" var="s">
+    				<tr>
+    					<td>-</td>
+    					<td>${s.dateTime}</td>
+    					<td>${s.provider.name}</td>
+    					<td>${s.receiver.name}</td>
+    					<td>${s.resource.name}</td>
+    					<td>${s.quantity}</td>
+    					<td>${s.name}</td>
+    				</tr>
+    				<c:forEach items="${s.increments}" var="i">
+    					<tr>
+    						<td>+</td>
+    						<td></td>
+    						<td>${i.provider.name}</td>
+    						<td>${i.receiver.name}</td>
+    						<td>${i.resource.name}</td>
+    						<td>${i.quantity}</td>
+    						<td>${i.name}</td>
+    					</tr>
+    				</c:forEach>
+    			</c:forEach>
+    		</tbody>
+    	</table>
+    </c:if>
+</div>

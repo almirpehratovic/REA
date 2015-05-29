@@ -1,0 +1,344 @@
+
+@import "messages/messages.css";
+body, div, td {
+    color: blue;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+}
+body {
+    background-color: #fff;
+    text-align: center;
+}
+#header {
+    margin-bottom: 1em;
+}
+#appname {
+    float: left;
+    font-size: 150%;
+    margin: 5px;
+    padding: 5px 0;
+    vertical-align: middle;
+}
+#banner {
+    float: left;
+    font-size: 150%;
+    margin: 5px;
+    padding: 5px 10px;
+    vertical-align: middle;
+}
+#userinfo {
+    float: right;
+    margin: 5px;
+    padding: 5px;
+}
+#language {
+    margin: 5px;
+    padding: 5px;
+}
+#headerWrapper {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 950px;
+    min-width: 950px;
+    overflow: hidden;
+    width: 950px;
+}
+#wrapper {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 950px;
+    min-width: 950px;
+    overflow: hidden;
+    width: 950px;
+}
+#main {
+    overflow: hidden;
+}
+#menu {
+    background: none repeat scroll 0 0 #eee;
+    float: left;
+    left: 0;
+    margin-right: 15px;
+    position: relative;
+    width: 300px;
+}
+#menu ul {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+#menu ul li {
+    padding: 0;
+}
+#menu a, #menu h2 {
+    color: #ffffff;
+    display: block;
+    margin: 0;
+    padding: 2px 6px;
+}
+#menu h2 {
+    background: none repeat scroll 0 0 #648c1d;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+#menu a {
+    background: none repeat scroll 0 0 #efefef;
+    color: red;
+    padding: 2px 12px;
+    text-decoration: none;
+}
+#menu a:hover {
+    background: none repeat scroll 0 0 #fff;
+    color: #648c1d;
+}
+#footer {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #fff;
+    border-color: red -moz-use-text-color -moz-use-text-color;
+    border-image: none;
+    border-right: medium none;
+    border-style: solid none none;
+    border-width: 1px medium medium;
+    margin-top: 15px;
+}
+#footer .new {
+    float: left;
+}
+#footer a:link {
+    color: black;
+}
+.quicklinks {
+    clear: both;
+    padding-bottom: 15px;
+}
+.quicklinks span {
+    float: right;
+}
+table.navigation {
+    border: 0 none;
+}
+label {
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 150px;
+}
+input {
+    height: 20px;
+}
+input, textarea, select {
+    border: 1px solid #b3b3b3;
+}
+input.image {
+    border: medium none;
+    height: auto;
+    vertical-align: middle;
+}
+submit {
+    height: 25px;
+}
+div {
+    text-align: left;
+}
+div .box {
+    display: block;
+    margin-left: 105px;
+}
+a.menu, a.menu:link, a.menu:visited {
+    display: block;
+    height: 25px;
+    width: 150px;
+}
+h1, h2, h3 {
+    color: blue;
+    font-family: Helvetica,sans-serif;
+}
+h1 {
+    font-size: 20px;
+    line-height: 26px;
+}
+h2 {
+    font-size: 18px;
+    line-height: 20px;
+}
+h3 {
+    color: #555;
+    font-size: 15px;
+    line-height: 21px;
+}
+h4 {
+    font-size: 14px;
+    line-height: 20px;
+}
+.errors {
+    color: red;
+    display: block;
+    font-weight: bold;
+    margin-left: 105px;
+}
+a {
+    font-size: 12px;
+    text-decoration: underline;
+}
+a img {
+    border: 0 none;
+    vertical-align: middle;
+}
+tr:nth-child(2n+1) {
+    background-color: #ffffff;
+}
+tr:nth-child(2n) {
+    background-color: #efefef;
+}
+a:link {
+    color: #7db223;
+}
+a:hover {
+    color: #456314;
+}
+a:active {
+    color: #7db223;
+}
+a:visited {
+    color: #7db223;
+}
+li {
+    padding-top: 5px;
+    text-align: left;
+}
+ul li {
+    margin: 0 0 0.25em;
+    padding: 0;
+}
+table {
+    background: none repeat scroll 0 0 #eeeeee;
+    border: 1px solid #bbbbbb;
+    border-collapse: collapse;
+    margin: 2px 0 0;
+    width: 100%;
+}
+table table {
+    border: 0 solid #e0e7d3;
+    margin: -5px 0;
+    width: 100%;
+}
+table td, table th {
+    border: 1px solid #cccccc;
+    padding: 2px;
+}
+table td form {
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+table th {
+    background: none repeat scroll 0 0 green;
+    color: #fff;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: left;
+}
+table thead {
+    background-color: #bbbbbb;
+    font-style: italic;
+    font-weight: bold;
+}
+table a:link {
+    color: #303030;
+}
+.utilbox {
+    width: 18px;
+}
+caption {
+    caption-side: top;
+    color: #848f73;
+    font-size: 12px;
+    padding-bottom: 4px;
+    text-align: left;
+    width: auto;
+}
+fieldset {
+    background: none repeat scroll 0 0 #e0e7d3;
+    border: medium none;
+    padding: 8px 8px 22px;
+    width: 560px;
+}
+fieldset label {
+    float: left;
+    margin-left: 20px;
+    margin-top: 1.7em;
+    width: 70px;
+}
+fieldset textfield {
+    background: none repeat scroll 0 0 #e0e7d3;
+    height: 20px;
+    margin: 3px;
+}
+fieldset textarea {
+    background: none repeat scroll 0 0 #e0e7d3;
+    height: 165px;
+    margin: 3px;
+}
+fieldset input {
+    background: none repeat scroll 0 0 #e0e7d3;
+    height: 20px;
+    margin: 3px;
+}
+fieldset table {
+    width: 100%;
+}
+fieldset th {
+    padding-left: 25px;
+}
+.table-buttons {
+    background-color: #fff;
+    border: medium none;
+}
+.table-buttons td {
+    border: medium none;
+}
+.submit input {
+    border: 1px solid #bbbbbb;
+    color: #777777;
+    font-size: 11px;
+    font-weight: bold;
+    height: 24px;
+    padding: 2px 7px;
+    text-transform: uppercase;
+}
+.updated {
+    background: none repeat scroll 0 0 #ecf1e5;
+    border: 4px solid #ecf1e5;
+    font-size: 11px;
+    margin-left: 2px;
+}
+.updated td {
+    color: #888888;
+    font-size: 11px;
+    padding: 2px 8px;
+}
+.dijitArrowButton {
+    height: 20px;
+}
+.dijitTextArea {
+    max-height: 22em !important;
+    max-width: 175px;
+    min-height: 5.5em !important;
+    overflow-y: auto !important;
+}
+.RichTextEditable {
+    max-height: 18em !important;
+    min-height: 18em !important;
+}
+.flag {
+    height: 11px;
+    width: 16px;
+}
+

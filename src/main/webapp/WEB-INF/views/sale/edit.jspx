@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+     
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    
+    <spring:message code="label_sale_provider" var="labelSaleProvider" />
+    <spring:message code="label_sale_receiver" var="labelSaleReceiver" />
+    <spring:message code="label_sale_resource" var="labelSaleResource" />
+    <spring:message code="label_sale_quantity" var="labelSaleQuantity" />             
+    <spring:message code="label_sale_cash" var="labelSaleCash" />
+    <spring:message code="label_sale_pizza" var="labelSalePizza" />
+
+    <h1>${formTitle}</h1>
+
+    <div id="saleUpdate">
+        <form:form modelAttribute="form" id="pizzaUpdateForm" method="post"
+        	enctype="multipart/form-data">
+
+        	<c:if test="${not empty message}">
+                <div id="message" class="${message.type}">${message.message}</div>
+            </c:if>
+
+            <form:label path="customerId">
+                ${labelSaleReceiver}*
+            </form:label>
+            <form:select path="customerId">
+            	<c:forEach items="${customers}" var="customer">
+            		<form:option value="${customer.id}">${customer.name}</form:option>
+            	</c:forEach>
+            </form:select>
+            <p/>
+
+            <form:label path="pizzaId">
+                ${labelSalePizza}*
+            </form:label>
+            <form:select path="pizzaId">
+            	<c:forEach items="${pizzas}" var="pizza">
+            		<form:option value="${pizza.id}">${pizza.name}</form:option>
+            	</c:forEach>
+            </form:select>
+            <p/>
+			
+			<form:label path="pizzaQuantity">
+                ${labelSaleQuantity}*
+            </form:label>
+            <form:input path="pizzaQuantity" />
+            <div>
+                <form:errors path="pizzaQuantity" cssClass="error" />
+            </div>
+            <p/>
+            
+            <form:label path="cashId">
+                ${labelSaleCash}*
+            </form:label>
+            <form:select path="cashId">
+            	<c:forEach items="${cashes}" var="cash">
+            		<form:option value="${cash.id}">${cash.name}</form:option>
+            	</c:forEach>
+            </form:select>
+            <p/>
+			
+			<form:label path="cashQuantity">
+                ${labelSaleQuantity}*
+            </form:label>
+            <form:input path="cashQuantity" />
+            <div>
+                <form:errors path="cashQuantity" cssClass="error" />
+            </div>
+            <p/>
+            
+
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Save</span>
+            </button>
+            <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Reset</span>
+            </button>
+
+        </form:form>
+    </div>
+</div>

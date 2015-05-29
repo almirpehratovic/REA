@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+     
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_pizza_new" var="labelPizzaNew"/>
+    <spring:message code="label_pizza_update" var="labelPizzaUpdate"/>
+    <spring:message code="label_pizza_name" var="labelPizzaName" />
+    <spring:message code="label_pizza_fat" var="labelPizzaFat" />
+    <spring:message code="label_pizza_packaging" var="labelPizzaPackaging" />
+    <spring:message code="label_pizza_quantity" var="labelPizzaQuantity" />
+
+    <spring:eval expression="pizza.id == null ? labelPizzaNew:labelPizzaUpdate"
+                 var="formTitle"/>
+                 
+    
+
+    <h1>${formTitle}</h1>
+
+    <div id="pizzaUpdate">
+        <form:form modelAttribute="pizza" id="pizzaUpdateForm" method="post"
+        	enctype="multipart/form-data">
+
+        	<c:if test="${not empty message}">
+                <div id="message" class="${message.type}">${message.message}</div>
+            </c:if>
+
+            <form:label path="name">
+                ${labelPizzaName}*
+            </form:label>
+            <form:input path="name" />
+            <div>
+                <form:errors path="name" cssClass="errors" />
+            </div>
+            <p/>
+
+            <form:label path="fat">
+                ${labelPizzaFat}*
+            </form:label>
+            <form:input path="fat" />
+            <div>
+                <form:errors path="fat" cssClass="errors" />
+            </div>
+            <p/>
+
+            <form:label path="packaging">
+                ${labelPizzaPackaging}*
+            </form:label>
+            <form:input path="packaging" />
+            <div>
+                <form:errors path="packaging" cssClass="errors" />
+            </div>
+            <p/>
+			
+			<form:label path="quantity">
+                ${labelPizzaQuantity}*
+            </form:label>
+            <form:input path="quantity" />
+            <div>
+                <form:errors path="quantity" cssClass="errors" />
+            </div>
+            <p/>
+            
+
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Save</span>
+            </button>
+            <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Reset</span>
+            </button>
+
+        </form:form>
+    </div>
+</div>

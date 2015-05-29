@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" version="2.0">
+
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<form:form modelAttribute="form" id="configForm" method="post"
+		enctype="multipart/form-data">
+		<table>
+			<thead>
+				<tr>
+					<th>Entitet</th>
+					<th>Prefix - Pattern - Suffix</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Pizza</td>
+					<td><form:input path="pizzaSetup.prefix" />-<form:input
+							path="pizzaSetup.pattern" />-<form:input
+							path="pizzaSetup.suffix" /></td>
+				</tr>
+				<tr>
+					<td>CashReceipt</td>
+					<td><form:input path="cashReceiptSetup.prefix" />-<form:input
+							path="cashReceiptSetup.pattern" />-<form:input
+							path="cashReceiptSetup.suffix" /></td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="submit"
+			class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Save</span>
+		</button>
+		<button type="reset"
+			class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Reset</span>
+		</button>
+	</form:form>
+
+</div>
