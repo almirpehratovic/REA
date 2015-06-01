@@ -12,7 +12,7 @@
     <spring:url value="/pizzeria" var="homeUrl"/>
 
     <a href="${homeUrl}">${homeText}</a> |
-    <a href="${homeUrl}?lang=bs">${labelEnUs}</a> |
+    <a href="${homeUrl}?lang=en">${labelEnUs}</a> |
     <a href="${homeUrl}?lang=it">${labelZhHk}</a> |
     <a href="${homeUrl}?theme=standard">${themeStandard}</a> |
     <a href="${homeUrl}?theme=blue">${themeBlue}</a>

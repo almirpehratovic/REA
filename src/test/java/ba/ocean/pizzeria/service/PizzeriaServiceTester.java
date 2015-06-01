@@ -25,58 +25,38 @@ public class PizzeriaServiceTester {
 		ctx.load("classpath:META-INF/spring/pizzeria-app-context.xml");
 		ctx.refresh();
 		
-		//testAop(ctx);
-		
 		PizzeriaService service = ctx.getBean("pizzeriaService",PizzeriaService.class);
 		
-		//getAllData(service);
 		insertData(service);
 		
-	}
-	
-	private static void testAop(ApplicationContext ctx){
-		
-		
-		Pizza pizza = new Pizza();
-		pizza.setName("capriccoza");
-		System.out.println(pizza.getName());
-		
-		/*ProxyFactory pf = new ProxyFactory();
-		pf.setTarget(pizza);
-		IdentificationPattern pattern = ctx.getBean("identificationPattern",IdentificationPattern.class);
-		pf.addAdvisor(new DefaultPointcutAdvisor(pattern,pattern));
-		
-		pizza = (Pizza)pf.getProxy();*/
-		pizza.setName("funghi");
-		System.out.println(pizza.getName());
 	}
 	
 	
 	private static void insertData(PizzeriaService service){
 		Customer customer = new Customer();
-		customer.setName("Almir");
+		customer.setName("John Doe");
 		customer.setDetails("#34#####");
 		
 		Pizzeria pizzeria = new Pizzeria();
 		pizzeria.setName("Cheers");
-		pizzeria.setAddress("Ferhadija 20");
+		pizzeria.setAddress("Unknown");
 		pizzeria.setDetails("#d.o.o.#1234567890987654####");
 		
 		Pizza pizza = new Pizza();
-		pizza.setName("Capricosa");
+		pizza.setName("Funghi");
 		pizza.setQuantity(15);
 		pizza.setUnit("kom");
 		pizza.setFat("20%");
 		pizza.setPackaging("M");
 		
 		Cash cash = new Cash();
-		cash.setName("Konvertibilne marke");
-		cash.setUnit("KM");
+		cash.setName("US Dollars");
+		cash.setUnit("$");
 		cash.setQuantity(150.5);
-		cash.setCurrency("BAM");
+		cash.setCurrency("USD");
 		
 		Sale sale = new Sale();
-		sale.setName("Nova Prodaja");
+		sale.setName("New Sale");
 		sale.setDateTime(new Date());
 		sale.setResource(pizza);
 		sale.setQuantity(1);
@@ -84,7 +64,7 @@ public class PizzeriaServiceTester {
 		sale.setReceiver(customer);
 		
 		CashReceipt receipt = new CashReceipt();
-		receipt.setName("Novi prihod");
+		receipt.setName("New Cash Receipt");
 		receipt.setProvider(customer);
 		receipt.setReceiver(pizzeria);
 		receipt.setResource(cash);
@@ -97,37 +77,37 @@ public class PizzeriaServiceTester {
 	}
 	
 	private static void getAllData(PizzeriaService service){
-		System.out.println("*** PICE ***");
+		System.out.println("*** PIZZA ***");
 		for (Pizza p : service.findAllPizzas()){
 			print(p);
 		}
 		
-		System.out.println("*** NOVAC *** " );
+		System.out.println("*** CASH *** " );
 		for (Cash c : service.findAllCash()){
 			print(c);
 		}
 		
-		System.out.println("*** PICERIJE *** " );
+		System.out.println("*** PIZZERIA *** " );
 		for (Pizzeria p : service.findAllPizzerias()){
 			print(p);
 		}
 		
-		System.out.println("*** KUPCI *** " );
+		System.out.println("*** CUSTOMER *** " );
 		for (Customer c : service.findAllCustomers()){
 			print(c);
 		}
 		
-		System.out.println("*** PRODAJE *** " );
+		System.out.println("*** SALE *** " );
 		for (Sale s : service.findAllSales()){
 			print(s);
 		}
 		
-		System.out.println("*** PRODAJE ZA PICERIJU " + service.findAllPizzerias().get(0) + " *** " );
+		System.out.println("*** SALES PER PIZZERIA " + service.findAllPizzerias().get(0) + " *** " );
 		for (Sale s : service.findSalesByProviderId(service.findAllPizzerias().get(0).getId())){
 			print(s);
 		}
 		
-		System.out.println("*** PRILIV NOVCA *** " );
+		System.out.println("*** CASH RECEIPT *** " );
 		for (CashReceipt c : service.findAllCashReceipts()){
 			print(c);
 		}

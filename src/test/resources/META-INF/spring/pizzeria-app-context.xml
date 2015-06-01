@@ -8,7 +8,6 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
 	<import resource="classpath:META-INF/spring/datasource-jpa.xml"/>
-	<import resource="classpath:META-INF/spring/aop-context.xml"/>
 	 
 	<context:component-scan base-package="ba.ocean.pizzeria.service" />
 	
