@@ -15,9 +15,10 @@
         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
-        
+    
+    <!--     
     <context:property-placeholder location="classpath:META-INF/spring/jdbc-postgresql.properties"/>
-
+	
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
     	<property name="driverClassName">
     		<value>${jdbc.driverClassName}</value>
@@ -35,7 +36,12 @@
     		<value>${jdbc.properties}</value>
     	</property>
     </bean>
-
+     -->
+    
+    <jdbc:embedded-database id="dataSource" type="H2">
+	 	<jdbc:script location="classpath:META-INF/spring/pizzeria-h2.sql"/>
+	 </jdbc:embedded-database>
+	 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
@@ -55,8 +61,13 @@
         </property>
         <property name="jpaProperties">
             <props>
+            	<!-- 
                 <prop key="hibernate.dialect">
                     org.hibernate.dialect.PostgreSQLDialect
+                </prop>
+                 -->
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.H2Dialect
                 </prop>
                 <prop key="hibernate.max_fetch_depth">3</prop>
                 <prop key="hibernate.jdbc.fetch_size">50</prop>
