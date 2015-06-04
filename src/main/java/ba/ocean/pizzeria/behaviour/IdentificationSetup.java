@@ -1,5 +1,14 @@
 package ba.ocean.pizzeria.behaviour;
 
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Part of Identification Pattern (Hruby, 159). If pattern is configured as auto-numbered then
+ * most important property is lastId. Prefix, pattern and suffix can be configured by application
+ * users and are used only when Identification Pattern is not configured as auto-numbered.
+ */
 public class IdentificationSetup {
 	private String prefix;
 	private String pattern;

@@ -1,5 +1,12 @@
 package ba.ocean.pizzeria.controllers;
 
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Form for entering one Sale event in UI.
+ */
 public class UISaleEvent {
 	private int customerId;
 	private int pizzaId;

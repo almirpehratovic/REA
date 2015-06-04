@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
+/**
+ * @author 		Chris Schaefer, Clarence Ho, Rob Harrop
+ * @since		05-2015
+ * 
+ * Utility class from book 'Pro Spring' (Apress)
+ */
+
 public class UrlUtil {
     public static String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
         String enc = httpServletRequest.getCharacterEncoding();

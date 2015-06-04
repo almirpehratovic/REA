@@ -11,6 +11,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Increment events are events that increase the value of related resources. Every increment event
+ * must be related by an exchange duality to a decrement economic event, and vice versa. (Hruby, 29).
+ */
+
 @Entity
 @Table(name="increment")
 @PrimaryKeyJoinColumn(name="id")

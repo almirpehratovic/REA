@@ -3,34 +3,29 @@ package ba.ocean.pizzeria.behaviour;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.aop.MethodBeforeAdvice;
-import org.springframework.aop.support.DynamicMethodMatcherPointcut;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import ba.ocean.jrea.domain.core.DecrementEvent;
 import ba.ocean.jrea.domain.core.Event;
 import ba.ocean.jrea.domain.core.Resource;
-import ba.ocean.pizzeria.domain.Pizza;
+
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Identification pattern is the aspect that can give an identity to specified objects or REA entities.
+ * This implementation provide auto-numbering or setup based on date patterns. If autoNumber is false,
+ * then users of application can configure this pattern in UI. Instead of database, all configurations
+ * are kept in setupFile.  
+ */
 
 @Component
-public class IdentificationPattern /*extends DynamicMethodMatcherPointcut implements MethodBeforeAdvice */{
+public class IdentificationPattern {
 	private boolean autoNumber;
 	private org.springframework.core.io.Resource setupFile;
 	
@@ -50,7 +45,12 @@ public class IdentificationPattern /*extends DynamicMethodMatcherPointcut implem
 	public void setSetupFile(org.springframework.core.io.Resource setupFile) {
 		this.setupFile = setupFile;
 	}
-
+	
+	/**
+	 * This is typical Spring advice. The goal is to intercept saving of various REA entities
+	 * and change them before going to database. Method assumes that every REA entity has 'name'
+	 * property. Configuration for aop intercepting can be found in aop-context.xml file.
+	 */
 	public Object modifyArgument(ProceedingJoinPoint joinpoint) throws Throwable{
 		System.out.println("*** ID PATTERN " + joinpoint.getArgs()[0].getClass().getSimpleName());
 		
@@ -102,43 +102,4 @@ public class IdentificationPattern /*extends DynamicMethodMatcherPointcut implem
 		Object ret = joinpoint.proceed();
 		return ret;
 	}
-	
-	
-	/*public List<String> getPatternClasses() {
-		return patternClasses;
-	}
-
-	public void setPatternClasses(List<String> patternClasses) {
-		this.patternClasses = patternClasses;
-	}
-
-	@Override
-	public void before(Method method, Object[] args, Object target) throws Throwable {
-		String newId = "";
-		if (target instanceof Resource){
-			SimpleDateFormat format = new SimpleDateFormat("yyMM-ddS");
-			newId = target.getClass().getSimpleName().substring(0,1) + "-" + 
-					format.format(new Date()) + "-R";
-		} else {
-			SimpleDateFormat format = new SimpleDateFormat("yyMM-ddS");
-			newId = target.getClass().getSimpleName().substring(0,1) + "-" + 
-					format.format(new Date()) + "-X";
-		}		
-		args[0] = newId;
-	}
-	
-	
-	@Override
-	public boolean matches(Method method, Class<?> cls, Object[] args) {
-		if (patternClasses.contains(cls.getName()) && 
-				method.getName().equals("setName")){
-			return true;
-		}
-		return false;
-	}
-	
-	*/
-	
-
-	
 }

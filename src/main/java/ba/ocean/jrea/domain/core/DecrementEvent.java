@@ -11,6 +11,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Decrement events are events that decrease the value of related resources. Every decrement event
+ * must be related by an exchange duality to an increment economic event, and vice versa. (Hruby, 29).
+ */
+
 @Entity
 @Table(name="decrement")
 @PrimaryKeyJoinColumn(name="id")

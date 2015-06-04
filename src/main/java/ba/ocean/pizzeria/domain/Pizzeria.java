@@ -9,6 +9,14 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import ba.ocean.jrea.domain.core.Agent;
 
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Main economic agent. All process is viewed from Pizzeria's perspective.
+ */
+
 @Entity
 @DiscriminatorValue(value="ORG")
 public class Pizzeria extends Agent {

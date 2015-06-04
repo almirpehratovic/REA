@@ -8,6 +8,14 @@ import javax.persistence.Transient;
 
 import ba.ocean.jrea.domain.core.Agent;
 
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Pizzeria's trading partner with whom Pizzeria changes Pizza's with Cash.
+ */
+
 @Entity
 @DiscriminatorValue(value="FL")
 public class Customer extends Agent{

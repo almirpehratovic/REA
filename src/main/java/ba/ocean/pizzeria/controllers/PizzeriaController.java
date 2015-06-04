@@ -14,8 +14,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validator;
 
-import org.springframework.aop.framework.ProxyFactory;
-import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ba.ocean.jrea.domain.core.Event;
 import ba.ocean.pizzeria.behaviour.IdentificationPattern;
 import ba.ocean.pizzeria.behaviour.IdentificationSetup;
 import ba.ocean.pizzeria.domain.Cash;
@@ -36,6 +33,14 @@ import ba.ocean.pizzeria.domain.Pizza;
 import ba.ocean.pizzeria.domain.Pizzeria;
 import ba.ocean.pizzeria.domain.Sale;
 import ba.ocean.pizzeria.service.PizzeriaService;
+
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Main controller in application. Responsible for showing web pages and reacting to user actions.
+ */
 
 @Controller
 @RequestMapping("/pizzeria")

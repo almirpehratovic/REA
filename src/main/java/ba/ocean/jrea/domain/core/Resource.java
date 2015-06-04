@@ -19,11 +19,19 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Configurable;
+
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Resources are things that are scarce, and have utility for economic agents, and users of business
+ * applications want to plan, monitor, and control. (Hruby, 19) 
+ */
 
 @Entity
 @Table(name="resource")
-@Inheritance(strategy=InheritanceType.JOINED) // Svaka podklasa ide u posebnu DB tabelu
+@Inheritance(strategy=InheritanceType.JOINED) // Every resource will have separate db table
 public class Resource implements Serializable{
 	private int id;
 	private String name;
@@ -95,6 +103,11 @@ public class Resource implements Serializable{
 		}
 	}
 	
+	/**
+	 * Keeping stock quantity would be redudant, instead we can calculate it from
+	 * all decrement and increment events
+	 * @return Quantity of available resources
+	 */
 	@Transient
 	public double getStockQuantity(){
 		double q = quantity;

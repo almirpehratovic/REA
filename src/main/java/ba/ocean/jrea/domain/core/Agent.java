@@ -8,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,11 +15,19 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.sound.midi.Receiver;
+
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Agents are individuals (not organizations) capable of controlling economic resources and of
+ * transferring or receiving the control to or from other individuals (Hruby, 56)
+ */
 
 @Entity
 @Table(name="agent")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE) // Sve podklase se nalaze u istoj koloni, razlikuju se po type koloni
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE) // All agents are contained in one db column, various agents are separeted by column 'type'
 @DiscriminatorColumn(name="type")
 public class Agent implements Serializable{
 	private int id;

@@ -1,13 +1,15 @@
-# Resource Event Agents (REA) example
+# Resources Events Agents (REA) example
 ## Preface
-This document will describe how to import REA example into Spring STS, run it and change few configuration options in application. 
+[REA]{http://en.wikipedia.org/wiki/Resources,_events,_agents_%28accounting_model%29} (Resource, Events, Agents) is popular model for teaching and designing accounting information systems. The model is originally proposed by William E. McCarthy in 1982. Although number of books with this subject are written in the past, there are no many examples and concrete implementations that can be found on the internet. Thus, the main reason for writing this sample application is learning REA and trying to practically apply theory behind the model.
 
-## Introduction
-The book [Model-Driven Design Using Business Patterns](http://www.springer.com/us/book/9783540301547) by [Pavel Hruby](http://phruby.com/) explained REA accounting model in great details and introduced business patterns based on real-life problems and situations. Examples in the book are following a small pizzeria dealing with exchange and conversion processes on day-to-day basis.
+The book [Model-Driven Design Using Business Patterns](http://www.springer.com/us/book/9783540301547) by [Pavel Hruby](http://phruby.com/) explaines REA accounting model in great details and introduces very interesting business patterns based on real-life problems and situations. Examples in the book are following a small pizzeria dealing with exchange and conversion processes on day-to-day basis. This project is Java Spring implementation of simple exchange process and Identification pattern, as described in the book.
+
+This document will describe how to import REA example into Spring STS IDE, how to run it and change few configuration options in application. 
+
+## Getting Started
 
 Source code in this repository is Java Spring implementation of simple REA exchange process and Identification pattern (based on aspect-oriented programming). Project uses in-memory database (H2) so it is very simple to try this example on any machine that can run Java and [Spring STS tool](https://spring.io/tools/sts) (which is actually a modified Eclipse tool).
 
-## Getting Started
 If you wish to try this example, please download source code from repository clicking on [link](https://github.com/almirpehratovic/REA/archive/master.zip). Extract the project somewhere on disk and turn on Spring STS. Inside Spring STS import project by choosing File - Import - Maven - Existing Maven Project and navigating to extracted folder. Spring STS will import project and download all java dependencies configured in pom.xml file.
 
 This project is using various Java anntotations that are not compatible with older java versions so we have to change compatibility to Java 1.6. In project properties (right click on project name) in Java Compiler section choose Compiler compliance level as 1.6, and in Java Build Path section on Libraries tab remove JRE 1.5 library and add your installed Java sdk version greater than 1.5. Spring STS will rebuild the project.

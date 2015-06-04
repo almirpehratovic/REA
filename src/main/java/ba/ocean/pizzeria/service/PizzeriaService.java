@@ -2,14 +2,21 @@ package ba.ocean.pizzeria.service;
 
 import java.util.List;
 
-import ba.ocean.jrea.domain.core.Agent;
-import ba.ocean.jrea.domain.core.Resource;
 import ba.ocean.pizzeria.domain.Cash;
 import ba.ocean.pizzeria.domain.CashReceipt;
 import ba.ocean.pizzeria.domain.Customer;
 import ba.ocean.pizzeria.domain.Pizza;
 import ba.ocean.pizzeria.domain.Pizzeria;
 import ba.ocean.pizzeria.domain.Sale;
+
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Main service for communicating with database. All objects that want to work with domain
+ * objects should use this service. Main user of the service is PizzeriaController.
+ */
 
 public interface PizzeriaService {
 	public List<Pizza> findAllPizzas();

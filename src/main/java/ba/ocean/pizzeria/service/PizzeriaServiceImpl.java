@@ -2,10 +2,6 @@ package ba.ocean.pizzeria.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -13,14 +9,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 
-import ba.ocean.jrea.domain.core.Agent;
-import ba.ocean.jrea.domain.core.Resource;
 import ba.ocean.pizzeria.domain.Cash;
 import ba.ocean.pizzeria.domain.CashReceipt;
 import ba.ocean.pizzeria.domain.Customer;
 import ba.ocean.pizzeria.domain.Pizza;
 import ba.ocean.pizzeria.domain.Pizzeria;
 import ba.ocean.pizzeria.domain.Sale;
+
+/**
+ * @author 		Almir Pehratovic
+ * @version  	0.1
+ * @since		05-2015
+ * 
+ * Implementation of main service for communicating with database. Every method uses helper repository
+ * classes from Spring JPA project.
+ */
 
 @Repository
 @Transactional
