@@ -23,9 +23,19 @@ CREATE TABLE agent
 (
   id integer NOT NULL auto_increment primary key,
   name text,
-  address text,
-  type text,
-  details text
+  address text
+);
+
+CREATE TABLE customer
+(
+  id integer NOT NULL primary key,
+  age integer
+);
+
+CREATE TABLE pizzeria
+(
+  id integer NOT NULL primary key,
+  numOfEmployees integer
 );
 
 
@@ -79,8 +89,10 @@ CREATE TABLE users
 );
 
 insert into users(username,password,role) values ('user','user','ROLE_USER');
-insert into agent(name,address,type,details) values ('John Doe','Central Park 23a','FL','#34#####');
-insert into agent(name,address,type,details) values ('Pizzeria Cheers','Wall Street 65d','ORG','#d.o.o.#1234567890987654####');
+insert into agent(name,address) values ('John Doe','Central Park 23a');
+insert into customer(id,age) values (1, 30);
+insert into agent(name,address) values ('Pizzeria Cheers','Wall Street 65d');
+insert into pizzeria(id,numOfEmployees) values (2,5);
 insert into resource(name,unit,quantity) values('US Dollars','$','150.5');
 insert into cash(id,currency) values(1,'USD');
 

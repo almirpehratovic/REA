@@ -48,9 +48,21 @@ CREATE TABLE agent
   id integer NOT NULL DEFAULT nextval('seq_agent'::regclass),
   name text,
   address text,
-  type text,
-  details text,
   CONSTRAINT agent_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE customer
+(
+  id integer NOT NULL,
+  age integer,
+  CONSTRAINT customer_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE pizzeria
+(
+  id integer NOT NULL,
+  numOfEmployees integer,
+  CONSTRAINT pizzeria_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE event
@@ -119,5 +131,11 @@ CREATE TABLE users
 );
 
 insert into users(username,password,role) values ('user','user','ROLE_USER');
+insert into agent(name,address) values ('John Doe','Central Park 23a');
+insert into customer(id,age) values (1, 30);
+insert into agent(name,address) values ('Pizzeria Cheers','Wall Street 65d');
+insert into pizzeria(id,numOfEmployees) values (2,5);
+insert into resource(name,unit,quantity) values('US Dollars','$','150.5');
+insert into cash(id,currency) values(1,'USD');
 
 

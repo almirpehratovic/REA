@@ -27,7 +27,8 @@ import javax.persistence.Table;
 public class IncrementEvent extends Event{
 	private List<DecrementEvent> decrements = new ArrayList<DecrementEvent>();
 	
-	@ManyToMany(cascade=CascadeType.ALL)
+	//@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.REFRESH)
 	@JoinTable(name="increment_decrement", joinColumns=@JoinColumn(name="increment_id"),
 			inverseJoinColumns=@JoinColumn(name="decrement_id"))
 	public List<DecrementEvent> getDecrements() {

@@ -31,7 +31,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="resource")
-@Inheritance(strategy=InheritanceType.JOINED) // Every resource will have separate db table
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Resource implements Serializable{
 	private int id;
 	private String name;
@@ -88,7 +88,8 @@ public class Resource implements Serializable{
 		this.unit = unit;
 	}
 	
-	@OneToMany(mappedBy="resource", cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
+	//@OneToMany(mappedBy="resource", cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="resource", cascade=CascadeType.REFRESH, fetch=FetchType.EAGER)
 	public List<Event> getEvents() {
 		return events;
 	}

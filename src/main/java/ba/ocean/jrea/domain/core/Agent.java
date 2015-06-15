@@ -27,8 +27,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="agent")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE) // All agents are contained in one db column, various agents are separeted by column 'type'
-@DiscriminatorColumn(name="type")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Agent implements Serializable{
 	private int id;
 	private String name;
@@ -67,7 +66,7 @@ public class Agent implements Serializable{
 		this.address = address;
 	}
 	
-	@OneToMany(mappedBy="provider", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy="provider", cascade=CascadeType.REFRESH)
 	public List<Event> getProviderEvents() {
 		return providerEvents;
 	}
@@ -76,7 +75,7 @@ public class Agent implements Serializable{
 		this.providerEvents = providerEvents;
 	}
 	
-	@OneToMany(mappedBy="receiver", cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy="provider", cascade=CascadeType.REFRESH)
 	public List<Event> getReceiverEvents() {
 		return receiverEvents;
 	}
@@ -84,6 +83,5 @@ public class Agent implements Serializable{
 	public void setReceiverEvents(List<Event> receiverEvents) {
 		this.receiverEvents = receiverEvents;
 	}
-	
 	
 }

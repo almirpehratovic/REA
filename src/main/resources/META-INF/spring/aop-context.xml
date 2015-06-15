@@ -22,9 +22,11 @@
 	 <aop:config>
 	 	<aop:pointcut expression="execution(* *save(ba.ocean.pizzeria.domain.Pizza))" id="savePizza"/>
 	 	<aop:pointcut expression="execution(* *save(ba.ocean.pizzeria.domain.CashReceipt))" id="saveCashReceipt"/>
+	 	<aop:pointcut expression="execution(* *save(ba.ocean.pizzeria.domain.Sale))" id="saveSale"/>
 	 	<aop:aspect ref="identificationPattern">
 	 		<aop:around method="modifyArgument" pointcut-ref="savePizza"/>
 	 		<aop:around method="modifyArgument" pointcut-ref="saveCashReceipt"/>
+	 		<aop:around method="modifyArgument" pointcut-ref="saveSale"/>
 	 	</aop:aspect>
 	 </aop:config>
 	 

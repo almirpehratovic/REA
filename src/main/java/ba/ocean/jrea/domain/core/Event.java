@@ -78,7 +78,7 @@ public class Event implements Serializable{
 		this.dateTime = dateTime;
 	}
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="provider_id")
 	public Agent getProvider() {
 		return provider;
@@ -88,7 +88,7 @@ public class Event implements Serializable{
 		this.provider = provider;
 	}
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="receiver_id")
 	public Agent getReceiver() {
 		return receiver;
@@ -98,7 +98,7 @@ public class Event implements Serializable{
 		this.receiver = receiver;
 	}
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name="resource_id")
 	public Resource getResource() {
 		return resource;

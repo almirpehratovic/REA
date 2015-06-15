@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import ba.ocean.jrea.domain.core.Agent;
@@ -17,22 +19,12 @@ import ba.ocean.jrea.domain.core.Agent;
  */
 
 @Entity
-@DiscriminatorValue(value="FL")
+@Table(name="customer")
+@PrimaryKeyJoinColumn(name="id")
 public class Customer extends Agent{
-	private String details;
 	private int age;
 	
-	@Column(name="details")
-	public String getDetails() {
-		return details;
-	}
-	public void setDetails(String details) {
-		this.details = details;
-		if (details != null)
-			setAge(Integer.parseInt(details.split("#")[1]));
-	}
-	
-	@Transient
+	@Column(name="age")
 	public int getAge() {
 		return age;
 	}

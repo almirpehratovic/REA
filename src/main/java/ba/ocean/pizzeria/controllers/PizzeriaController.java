@@ -148,7 +148,7 @@ public class PizzeriaController {
     	Sale sale = new Sale();
     	
     	sale.setDateTime(new Date());
-    	sale.setName("Prodaja pice");
+    	sale.setName("Sale");
     	System.out.println("Prodaja pice: " + sale.getName());
     	sale.setProvider(pizzeria);
     	sale.setReceiver(customer);
@@ -166,6 +166,8 @@ public class PizzeriaController {
     		uiModel.addAttribute("form", form);
     		return ret;
     	}
+    	
+    	pizzeriaService.save(sale);
     	
     	CashReceipt receipt = new CashReceipt();
     	receipt.setDateTime(new Date());
