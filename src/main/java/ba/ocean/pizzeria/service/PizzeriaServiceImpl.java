@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 
+import ba.ocean.pizzeria.behaviour.IdentificationSetup;
 import ba.ocean.pizzeria.domain.Cash;
 import ba.ocean.pizzeria.domain.CashReceipt;
 import ba.ocean.pizzeria.domain.Customer;
@@ -47,6 +48,9 @@ public class PizzeriaServiceImpl implements PizzeriaService{
 	
 	@Autowired
 	private CashReceiptRepository cashReceiptRepository;
+	
+	@Autowired
+	private IdentificationSetupRepository identificationSetupRepository;
 
 
 	@Override
@@ -147,7 +151,20 @@ public class PizzeriaServiceImpl implements PizzeriaService{
 	public CashReceipt save(CashReceipt cashReceipt) {
 		return cashReceiptRepository.save(cashReceipt);
 	}
-	
-	
 
+	@Override
+	public List<IdentificationSetup> findAllIdentificationSetups() {
+		return Lists.newArrayList(identificationSetupRepository.findAll());
+	}
+
+	@Override
+	public IdentificationSetup save(IdentificationSetup identificationSetup) {
+		return identificationSetupRepository.save(identificationSetup);
+	}
+	
+	@Override
+	public List<IdentificationSetup> findIdentificationSetupsByEntity(String entity) {
+		return identificationSetupRepository.findByEntity(entity);
+	}
+	
 }

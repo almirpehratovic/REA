@@ -81,6 +81,16 @@ CREATE TABLE cash_receipt
   id integer NOT NULL primary key
 );
 
+CREATE TABLE identification_setup
+(
+  id integer NOT NULL auto_increment primary key,
+  entity text,
+  lastId integer,
+  prefix text,
+  pattern text,
+  suffix text
+);
+
 CREATE TABLE users
 (
   username character varying(20) NOT NULL primary key,
@@ -95,4 +105,8 @@ insert into agent(name,address) values ('Pizzeria Cheers','Wall Street 65d');
 insert into pizzeria(id,numOfEmployees) values (2,5);
 insert into resource(name,unit,quantity) values('US Dollars','$','150.5');
 insert into cash(id,currency) values(1,'USD');
+insert into identification_setup(entity,lastId,prefix,pattern,suffix) values('ba.ocean.pizzeria.domain.Pizza',100,'P','yyMM-ddS','R');
+insert into identification_setup(entity,lastId,prefix,pattern,suffix) values('ba.ocean.pizzeria.domain.CashReceipt',100,'CR','yyMM-ddS','0A');
+insert into identification_setup(entity,lastId,prefix,pattern,suffix) values('ba.ocean.pizzeria.domain.Sale',100,'S','yyMM-ddS','BA');
+
 

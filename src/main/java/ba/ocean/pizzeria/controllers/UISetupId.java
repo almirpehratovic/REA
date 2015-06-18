@@ -1,5 +1,8 @@
 package ba.ocean.pizzeria.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ba.ocean.pizzeria.behaviour.IdentificationSetup;
 
 /**
@@ -10,7 +13,20 @@ import ba.ocean.pizzeria.behaviour.IdentificationSetup;
  * Responsible for entering Identification Pattern setup in UI.
  */
 public class UISetupId {
-	private IdentificationSetup pizzaSetup;
+	
+	private List<IdentificationSetup> setups;// = new ArrayList<IdentificationSetup>();
+
+	public List<IdentificationSetup> getSetups() {
+		return setups;
+	}
+
+	public void setSetups(List<IdentificationSetup> setups) {
+		this.setups = setups;
+	}
+	
+	
+	
+	/*private IdentificationSetup pizzaSetup;
 	private IdentificationSetup cashReceiptSetup;
 	
 	public UISetupId() {
@@ -28,7 +44,7 @@ public class UISetupId {
 	}
 	public void setCashReceiptSetup(IdentificationSetup cashReceiptSetup) {
 		this.cashReceiptSetup = cashReceiptSetup;
-	}
+	}*/
 	
 	
 }

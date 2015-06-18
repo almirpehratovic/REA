@@ -188,18 +188,11 @@ public class PizzeriaController {
 	
 	@RequestMapping(value="/setup", method = RequestMethod.GET)
     public String createSetup(Model uiModel){
+		
+		List<IdentificationSetup> setups = pizzeriaService.findAllIdentificationSetups();
 		UISetupId form = new UISetupId();
-		
-		Properties props = new Properties();
-		try {
-			props.load(identificationPattern.getSetupFile().getInputStream());
-			form.setPizzaSetup(new IdentificationSetup(props.getProperty("pizza.setup.prefix"), props.getProperty("pizza.setup.pattern"), props.getProperty("pizza.setup.suffix")));
-			form.setCashReceiptSetup(new IdentificationSetup(props.getProperty("cashReceipt.setup.prefix"), props.getProperty("cashReceipt.setup.pattern"), props.getProperty("cashReceipt.setup.suffix")));
-			uiModel.addAttribute("form",form);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		form.setSetups(setups);
+		uiModel.addAttribute("form", form);
 		
     	return "config/setup";
     }
@@ -208,33 +201,24 @@ public class PizzeriaController {
     public String createSetup(@Valid UISetupId setup, BindingResult bindingResult, Model uiModel,
     		HttpServletRequest httpServletRequest, RedirectAttributes redirectAttributes, Locale locale){
     	
-		System.out.println("SPAŠAVAM SETUP");
-    	if (bindingResult.hasErrors()){
+		if (bindingResult.hasErrors()){
     		uiModel.addAttribute("message", new Message("errors", messageSource.getMessage("object_save_fail", new Object[]{}, locale)));
     		uiModel.addAttribute("form", setup);
     		return "config/setup";
     	}
-    	
-    	uiModel.asMap().clear();
+		
+		uiModel.asMap().clear();
     	redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("object_save_success",new Object[]{}, locale)));
-    	  	
-    	try {
-    		Properties props = new Properties();
-    		props.setProperty("pizza.setup.prefix",setup.getPizzaSetup().getPrefix());
-    		props.setProperty("pizza.setup.pattern",setup.getPizzaSetup().getPattern());
-    		props.setProperty("pizza.setup.suffix",setup.getPizzaSetup().getSuffix());
-    		props.setProperty("pizza.setup.lastId","1000");
-    		props.setProperty("cashReceipt.setup.prefix",setup.getCashReceiptSetup().getPrefix());
-    		props.setProperty("cashReceipt.setup.pattern",setup.getCashReceiptSetup().getPattern());
-    		props.setProperty("cashReceipt.setup.suffix",setup.getCashReceiptSetup().getSuffix());
-    		props.setProperty("cashReceipt.setup.lastId","100");
-			File file = identificationPattern.getSetupFile().getFile();
-			props.store(new FileOutputStream(file),"setup za identifikacijski pattern");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		List<IdentificationSetup> setups = setup.getSetups();
+		for (IdentificationSetup s : setups) {
+			IdentificationSetup dbSetup = pizzeriaService.findIdentificationSetupsByEntity(s.getEntity()).get(0);
+			dbSetup.setLastId(s.getLastId());
+			dbSetup.setPrefix(s.getPrefix());
+			dbSetup.setPattern(s.getPattern());
+			dbSetup.setSuffix(s.getSuffix());
+			pizzeriaService.save(dbSetup);
 		}
-    	
     	
     	return "redirect:/pizzeria";
     }

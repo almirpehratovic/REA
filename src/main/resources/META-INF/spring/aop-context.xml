@@ -15,7 +15,6 @@
 	 
 	 <bean id="identificationPattern" class="ba.ocean.pizzeria.behaviour.IdentificationPattern">
 	 	<property name="autoNumber" value="false"/>
-	 	<property name="setupFile" value="classpath:META-INF/spring/idSetup.properties"/>
 	 </bean>
 	 
 	 

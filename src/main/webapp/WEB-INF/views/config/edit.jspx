@@ -8,29 +8,29 @@
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
-
+	
 	<form:form modelAttribute="form" id="configForm" method="post"
 		enctype="multipart/form-data">
 		<table>
 			<thead>
 				<tr>
 					<th>Entitet</th>
-					<th>Prefix - Pattern - Suffix</th>
+					<th>Prefix</th>
+					<th>Pattern</th>
+					<th>Suffix</th>
+					<th>Last id</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Pizza</td>
-					<td><form:input path="pizzaSetup.prefix" />-<form:input
-							path="pizzaSetup.pattern" />-<form:input
-							path="pizzaSetup.suffix" /></td>
-				</tr>
-				<tr>
-					<td>CashReceipt</td>
-					<td><form:input path="cashReceiptSetup.prefix" />-<form:input
-							path="cashReceiptSetup.pattern" />-<form:input
-							path="cashReceiptSetup.suffix" /></td>
-				</tr>
+				<c:forEach items="${form.setups}" varStatus="status" var="s">
+					<tr>
+						<td>${s.entity}<input type="hidden" name="setups[${status.index}].entity" value="${s.entity}"/></td>
+						<td><input name="setups[${status.index}].prefix" value="${s.prefix}" size="10"/></td>
+						<td><input name="setups[${status.index}].pattern" value="${s.pattern}" size="10"/></td>
+						<td><input name="setups[${status.index}].suffix" value="${s.suffix}" size="10"/></td>
+						<td><input name="setups[${status.index}].lastId" value="${s.lastId}" size="10"/></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		<button type="submit"

@@ -5,13 +5,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ba.ocean.jrea.domain.core.Agent;
 import ba.ocean.jrea.domain.core.Event;
 import ba.ocean.jrea.domain.core.Resource;
+import ba.ocean.pizzeria.service.PizzeriaService;
 
 /**
  * @author 		Almir Pehratovic
@@ -20,14 +24,15 @@ import ba.ocean.jrea.domain.core.Resource;
  * 
  * Identification pattern is the aspect that can give an identity to specified objects or REA entities.
  * This implementation provide auto-numbering or setup based on date patterns. If autoNumber is false,
- * then users of application can configure this pattern in UI. Instead of database, all configurations
- * are kept in setupFile.  
+ * then users of application can configure this pattern in UI. Identification setups are stored in database
  */
 
 @Component
 public class IdentificationPattern {
+	@Autowired
+	private PizzeriaService pizzeriaService;
+	
 	private boolean autoNumber;
-	private org.springframework.core.io.Resource setupFile;
 	
 	public boolean isAutoNumber() {
 		return autoNumber;
@@ -38,14 +43,6 @@ public class IdentificationPattern {
 	}
 	
 	
-	public org.springframework.core.io.Resource getSetupFile() {
-		return setupFile;
-	}
-
-	public void setSetupFile(org.springframework.core.io.Resource setupFile) {
-		this.setupFile = setupFile;
-	}
-	
 	/**
 	 * This is typical Spring advice. The goal is to intercept saving of various REA entities
 	 * and change them before going to database. Method assumes that every REA entity has 'name'
@@ -54,51 +51,50 @@ public class IdentificationPattern {
 	public Object modifyArgument(ProceedingJoinPoint joinpoint) throws Throwable{
 		System.out.println("*** ID PATTERN " + joinpoint.getArgs()[0].getClass().getSimpleName());
 		
-		
 		if (joinpoint.getArgs()[0] instanceof Event){
 			Event event = (Event)joinpoint.getArgs()[0];
-			Properties props = new Properties();
-			try {
-				props.load(getSetupFile().getInputStream());
-				SimpleDateFormat format = new SimpleDateFormat(props.getProperty("cashReceipt.setup.pattern"));
-				String newId = (Integer.parseInt(props.getProperty("cashReceipt.setup.lastId")) + 1) + "";
+			List<IdentificationSetup> setups = pizzeriaService.findIdentificationSetupsByEntity(event.getClass().getName());
+			if (setups.size()>0) {
+				IdentificationSetup setup = setups.get(0);
 				if (!autoNumber) {
-					newId = props.getProperty("cashReceipt.setup.prefix") + "-" + 
-							format.format(new Date()) + "-" + props.getProperty("cashReceipt.setup.suffix");
+					SimpleDateFormat format = new SimpleDateFormat(setup.getPattern());
+					event.setName(setup.getPrefix()+"-"+format.format(new Date())+"-"+setup.getSuffix());
 				} else {
-					props.setProperty("cashReceipt.setup.lastId", newId);
-					File file = getSetupFile().getFile();
-					props.store(new FileOutputStream(file),"setup za identifikacijski pattern");
+					setup.setLastId(setup.getLastId()+1);
+					event.setName(""+setup.getLastId());
+					pizzeriaService.save(setup);
 				}
-				event.setName(newId);
-				Object ret = joinpoint.proceed(new Object[]{event});
-				return ret;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}	
+			}
 		} else if (joinpoint.getArgs()[0] instanceof Resource){
 			Resource resource = (Resource)joinpoint.getArgs()[0];
-			
-			Properties props = new Properties();
-			try {
-				props.load(getSetupFile().getInputStream());
-				SimpleDateFormat format = new SimpleDateFormat(props.getProperty("pizza.setup.pattern"));
-				String newId = (Integer.parseInt(props.getProperty("pizza.setup.lastId")) + 1) + "";
+			List<IdentificationSetup> setups = pizzeriaService.findIdentificationSetupsByEntity(resource.getClass().getName());
+			if (setups.size()>0) {
+				IdentificationSetup setup = setups.get(0);
 				if (!autoNumber) {
-					newId = props.getProperty("pizza.setup.prefix") + "-" + 
-							format.format(new Date()) + "-" + props.getProperty("pizza.setup.suffix");
+					SimpleDateFormat format = new SimpleDateFormat(setup.getPattern());
+					resource.setName(setup.getPrefix()+"-"+format.format(new Date())+"-"+setup.getSuffix());
 				} else {
-					props.setProperty("pizza.setup.lastId", newId);
-					File file = getSetupFile().getFile();
-					props.store(new FileOutputStream(file),"setup za identifikacijski pattern");
+					setup.setLastId(setup.getLastId()+1);
+					resource.setName(""+setup.getLastId());
+					pizzeriaService.save(setup);
 				}
-				resource.setName(newId);
-				Object ret = joinpoint.proceed(new Object[]{resource});
-				return ret;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}	
+			}
+		} else if (joinpoint.getArgs()[0] instanceof Agent){
+			Agent agent = (Agent)joinpoint.getArgs()[0];
+			List<IdentificationSetup> setups = pizzeriaService.findIdentificationSetupsByEntity(agent.getClass().getName());
+			if (setups.size()>0) {
+				IdentificationSetup setup = setups.get(0);
+				if (!autoNumber) {
+					SimpleDateFormat format = new SimpleDateFormat(setup.getPattern());
+					agent.setName(setup.getPrefix()+"-"+format.format(new Date())+"-"+setup.getSuffix());
+				} else {
+					setup.setLastId(setup.getLastId()+1);
+					agent.setName(""+setup.getLastId());
+					pizzeriaService.save(setup);
+				}
+			}
 		}
+		
 		Object ret = joinpoint.proceed();
 		return ret;
 	}

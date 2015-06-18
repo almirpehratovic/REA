@@ -57,6 +57,7 @@
         	<array>
         		<value>ba.ocean.jrea.domain.core</value>
         		<value>ba.ocean.pizzeria.domain</value>
+        		<value>ba.ocean.pizzeria.behaviour</value>
         	</array>
         </property>
         <property name="jpaProperties">
