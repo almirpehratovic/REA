@@ -3,14 +3,22 @@ package ba.ocean.pizzeria.behaviour;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import ba.ocean.jrea.domain.core.Agent;
 import ba.ocean.jrea.domain.core.Event;
@@ -24,7 +32,9 @@ import ba.ocean.pizzeria.service.PizzeriaService;
  * 
  * Identification pattern is the aspect that can give an identity to specified objects or REA entities.
  * This implementation provide auto-numbering or setup based on date patterns. If autoNumber is false,
- * then users of application can configure this pattern in UI. Identification setups are stored in database
+ * then users of application can configure this pattern in UI. Identification setups are stored in database.
+ * Every setup has xml structure with these tags: static, date, local. For example
+ *    <static>PIZZA-</static><date>yyMM-ddS</date><static>-R</static>
  */
 
 @Component
@@ -57,8 +67,7 @@ public class IdentificationPattern {
 			if (setups.size()>0) {
 				IdentificationSetup setup = setups.get(0);
 				if (!autoNumber) {
-					SimpleDateFormat format = new SimpleDateFormat(setup.getPattern());
-					event.setName(setup.getPrefix()+"-"+format.format(new Date())+"-"+setup.getSuffix());
+					event.setName(parseSetup(setup));
 				} else {
 					setup.setLastId(setup.getLastId()+1);
 					event.setName(""+setup.getLastId());
@@ -71,8 +80,7 @@ public class IdentificationPattern {
 			if (setups.size()>0) {
 				IdentificationSetup setup = setups.get(0);
 				if (!autoNumber) {
-					SimpleDateFormat format = new SimpleDateFormat(setup.getPattern());
-					resource.setName(setup.getPrefix()+"-"+format.format(new Date())+"-"+setup.getSuffix());
+					resource.setName(parseSetup(setup));
 				} else {
 					setup.setLastId(setup.getLastId()+1);
 					resource.setName(""+setup.getLastId());
@@ -85,8 +93,7 @@ public class IdentificationPattern {
 			if (setups.size()>0) {
 				IdentificationSetup setup = setups.get(0);
 				if (!autoNumber) {
-					SimpleDateFormat format = new SimpleDateFormat(setup.getPattern());
-					agent.setName(setup.getPrefix()+"-"+format.format(new Date())+"-"+setup.getSuffix());
+					agent.setName(parseSetup(setup));
 				} else {
 					setup.setLastId(setup.getLastId()+1);
 					agent.setName(""+setup.getLastId());
@@ -97,5 +104,76 @@ public class IdentificationPattern {
 		
 		Object ret = joinpoint.proceed();
 		return ret;
+	}
+	
+	private String parseSetup(IdentificationSetup setup) {
+		if (setup.getPattern() == null) {
+			return "";
+		} else {
+			String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><config>" + setup.getPattern() + "</config>";
+			SAXParserFactory spf = SAXParserFactory.newInstance();
+			try {
+				SAXParser parser = spf.newSAXParser();
+				XmlParserHandler handler = new XmlParserHandler();
+				parser.parse(new InputSource(new StringReader(xml)),handler);
+				return handler.getText();
+			} catch(Exception e) {
+				e.printStackTrace();
+				return "";
+			}
+		}
+	}
+	
+	private class XmlParserHandler extends DefaultHandler{
+		public XmlParserHandler() {}
+		
+		private StringBuffer text = new StringBuffer();
+		private String tag;
+		private String pattern;
+		private String compiledText;
+		private int attLength = -1;
+
+		@Override
+		public void startElement(String namespaceURI, String localName, String qName,Attributes attributes) throws SAXException {
+			tag = qName.toLowerCase();
+			for (int i=0; i<attributes.getLength(); i++) {
+				if (attributes.getQName(i).equals("length")) {
+					attLength = Integer.parseInt(attributes.getValue(i));
+					break;
+				}
+			}
+		}
+		
+		@Override
+		public void characters(char[] ch, int start, int length)
+				throws SAXException {
+			String pattern = new String(ch,start,length);
+			
+			if (tag.equals("static")) {
+				compiledText = pattern;
+			} else if (tag.equals("date")) {
+				System.out.println("*** pattern = " + pattern);
+				SimpleDateFormat format = new SimpleDateFormat(pattern);
+				compiledText = format.format(new Date());
+			} else if (tag.equals("local")) {
+				compiledText = pattern;
+			}
+			
+			
+		}
+		
+		@Override
+		public void endElement(String namespaceURI, String localName, String qName)
+				throws SAXException {
+			text.append(compiledText);
+			tag="";
+			pattern= "";
+			attLength = -1;
+			compiledText = "";
+		}
+		
+		public String getText() {
+			return text.toString();
+		}
 	}
 }

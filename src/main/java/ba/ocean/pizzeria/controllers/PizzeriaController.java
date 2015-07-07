@@ -214,9 +214,7 @@ public class PizzeriaController {
 		for (IdentificationSetup s : setups) {
 			IdentificationSetup dbSetup = pizzeriaService.findIdentificationSetupsByEntity(s.getEntity()).get(0);
 			dbSetup.setLastId(s.getLastId());
-			dbSetup.setPrefix(s.getPrefix());
 			dbSetup.setPattern(s.getPattern());
-			dbSetup.setSuffix(s.getSuffix());
 			pizzeriaService.save(dbSetup);
 		}
     	

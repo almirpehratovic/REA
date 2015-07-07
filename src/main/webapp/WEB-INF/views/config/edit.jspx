@@ -15,9 +15,7 @@
 			<thead>
 				<tr>
 					<th>Entitet</th>
-					<th>Prefix</th>
 					<th>Pattern</th>
-					<th>Suffix</th>
 					<th>Last id</th>
 				</tr>
 			</thead>
@@ -25,9 +23,7 @@
 				<c:forEach items="${form.setups}" varStatus="status" var="s">
 					<tr>
 						<td>${s.entity}<input type="hidden" name="setups[${status.index}].entity" value="${s.entity}"/></td>
-						<td><input name="setups[${status.index}].prefix" value="${s.prefix}" size="10"/></td>
-						<td><input name="setups[${status.index}].pattern" value="${s.pattern}" size="10"/></td>
-						<td><input name="setups[${status.index}].suffix" value="${s.suffix}" size="10"/></td>
+						<td><input name="setups[${status.index}].pattern" value="${s.pattern}" size="40"/></td>
 						<td><input name="setups[${status.index}].lastId" value="${s.lastId}" size="10"/></td>
 					</tr>
 				</c:forEach>

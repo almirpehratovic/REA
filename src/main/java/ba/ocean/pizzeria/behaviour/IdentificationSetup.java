@@ -21,19 +21,15 @@ import javax.persistence.Table;
 public class IdentificationSetup {
 	private int id;
 	private String entity; 
-	private String prefix;
 	private String pattern;
-	private String suffix;
 	private int lastId;
 	
 	public IdentificationSetup() {
 		
 	}
 	
-	public IdentificationSetup(String prefix, String pattern, String suffix) {
-		this.prefix = prefix;
+	public IdentificationSetup(String pattern) {
 		this.pattern = pattern;
-		this.suffix = suffix;
 	}
 	
 	@Id
@@ -55,14 +51,6 @@ public class IdentificationSetup {
 	public void setEntity(String entity) {
 		this.entity = entity;
 	}
-
-	@Column(name="prefix")
-	public String getPrefix() {
-		return prefix;
-	}
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
 	
 	@Column(name="pattern")
 	public String getPattern() {
@@ -70,14 +58,6 @@ public class IdentificationSetup {
 	}
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
-	}
-	
-	@Column(name="suffix")
-	public String getSuffix() {
-		return suffix;
-	}
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
 	}
 	
 	@Column(name="lastId")
