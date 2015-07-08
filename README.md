@@ -41,6 +41,12 @@ Identification pattern is enabled by default. Configuration for this pattern can
 
 Commenting the line with propriate aop:around tag would disable Identification pattern on Pizza and/or CashReceipt objects. For any change of this or any other file it is necessary to stop the app and re-run it after the change.
 
+Users of the application can change identification setups. Currently, all setup is writen in xml. For example, following setup enables forming of identification based on static text, dynamic field of Pizza, date pattern and autoincrement number:
+
+```html
+<static>P-</static><field length="2" case="upper">name</field><date>yyMM-ddS</date><static>-R-</static><id>id</id>
+```
+
 Persistence in project is configured with JPA and Hibernate combination. By default, application is configured to run on in-memory H2 database, but changing the database is pretty easy. For example, projects contains database script for creating tables and initial records on postgreSQL database. After creating database structure all that is necessary is to change few configurations:
 
 * In src/main/resources/META-INF/spring/jdbc-postgresql.properties file add connection properties:
