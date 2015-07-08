@@ -1,6 +1,7 @@
 package ba.ocean.pizzeria.service;
 
 import java.io.StringReader;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,7 +41,24 @@ public class PizzeriaServiceTester {
 		PizzeriaService service = ctx.getBean("pizzeriaService",PizzeriaService.class);
 		
 		PizzeriaServiceTester tester = new PizzeriaServiceTester();
-		tester.parseXml();
+		//tester.parseXml();
+		
+		Pizza p = new Pizza();
+		p.setName("funghi");
+		
+		Object o = p;
+		try {
+			Method method = o.getClass().getMethod("getName",null);
+			System.out.println(method.invoke(o, null));
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	private void parseXml() {

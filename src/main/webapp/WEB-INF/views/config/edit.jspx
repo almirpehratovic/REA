@@ -23,8 +23,10 @@
 				<c:forEach items="${form.setups}" varStatus="status" var="s">
 					<tr>
 						<td>${s.entity}<input type="hidden" name="setups[${status.index}].entity" value="${s.entity}"/></td>
-						<td><input name="setups[${status.index}].pattern" value="${s.pattern}" size="40"/></td>
+						<!-- <td><input name="setups[${status.index}].pattern" value="${s.pattern}" size="40"/></td>-->
+						<td><textarea name="setups[${status.index}].pattern" cols="40" rows="5">${s.pattern}</textarea></td>
 						<td><input name="setups[${status.index}].lastId" value="${s.lastId}" size="10"/></td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>

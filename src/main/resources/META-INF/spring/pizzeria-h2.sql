@@ -105,7 +105,7 @@ insert into agent(name,address) values ('Pizzeria Cheers','Wall Street 65d');
 insert into pizzeria(id,numOfEmployees) values (2,5);
 insert into resource(name,unit,quantity) values('US Dollars','$','150.5');
 insert into cash(id,currency) values(1,'USD');
-insert into identification_setup(entity,lastId,pattern) values('ba.ocean.pizzeria.domain.Pizza',100,'<static>PIZZA-</static><date>yyMM-ddS</date><static>-R</static>');
+insert into identification_setup(entity,lastId,pattern) values('ba.ocean.pizzeria.domain.Pizza',100,'<static>P-</static><field length="2" case="upper">name</field><date>yyMM-ddS</date><static>-R-</static><id>id</id>');
 insert into identification_setup(entity,lastId,pattern) values('ba.ocean.pizzeria.domain.CashReceipt',100,'<static>CR-</static><date>yyMM-ddS</date>');
 insert into identification_setup(entity,lastId,pattern) values('ba.ocean.pizzeria.domain.Sale',100,'<static>SALE-</static><date>yyMM-ddS</date>');
 

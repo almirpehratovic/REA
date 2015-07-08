@@ -60,7 +60,7 @@ public class Resource implements Serializable{
 	}
 	
 	@NotEmpty(message="{validation.name.NotEmpty.message}")
-	@Size(min=1,max=20,message="{validation.name.Size.message}")
+	@Size(min=1,max=50,message="{validation.name.Size.message}")
 	@Column(name="name")
 	public String getName() {
 		return name;
