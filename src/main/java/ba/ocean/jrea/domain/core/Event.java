@@ -1,7 +1,9 @@
 package ba.ocean.jrea.domain.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,12 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.AssertTrue;
+
+import ba.ocean.jrea.domain.structure.Group;
 
 /**
  * @author 		Almir Pehratovic
@@ -40,6 +46,8 @@ public class Event implements Serializable{
 	private Agent receiver;
 	private Resource resource;
 	private double quantity;
+	
+	private List<Group> groups = new ArrayList<Group>();
 	
 	public Event(){
 	}
@@ -115,6 +123,22 @@ public class Event implements Serializable{
 
 	public void setQuantity(double quantity) {
 		this.quantity = quantity;
+	}
+	
+	@ManyToMany
+	@JoinTable(name="event_group",joinColumns=@JoinColumn(name="event_id"),inverseJoinColumns=@JoinColumn(name="group_id"))
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
+	}
+	
+	public void addGroup(Group group) {
+		if (!groups.contains(group)) {
+			groups.add(group);
+		}
 	}
 	
 	@Transient

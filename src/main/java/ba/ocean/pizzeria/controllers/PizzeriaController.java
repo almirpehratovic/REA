@@ -3,6 +3,7 @@ package ba.ocean.pizzeria.controllers;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -19,11 +20,15 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ba.ocean.jrea.domain.editors.GroupCollectionEditor;
+import ba.ocean.jrea.domain.structure.Group;
 import ba.ocean.pizzeria.behaviour.IdentificationPattern;
 import ba.ocean.pizzeria.behaviour.IdentificationSetup;
 import ba.ocean.pizzeria.domain.Cash;
@@ -71,7 +76,8 @@ public class PizzeriaController {
     public String updatePizza(@PathVariable("id") Integer id, Model uiModel){
 		Pizza pizza = pizzeriaService.findPizzaById(id);
     	uiModel.addAttribute("pizza", pizza);
-    	System.out.println("Pronašao picu " + pizza.getName() + "; broj događaja " + pizza.getEvents().size());
+    	List<Group> groups = pizzeriaService.findAllGroups();
+    	uiModel.addAttribute("groups", groups);
     	return "pizza/update";
     }
 	
@@ -96,9 +102,11 @@ public class PizzeriaController {
 	
 	@RequestMapping(value="/pizza",params="form", method = RequestMethod.GET)
     public String createPizza(Model uiModel){
-		Pizza pizza = new Pizza();
-		
+		Pizza pizza = new Pizza();	
     	uiModel.addAttribute("pizza", pizza);
+    	
+    	List<Group> groups = pizzeriaService.findAllGroups();
+    	uiModel.addAttribute("groups", groups);
     	return "pizza/create";
     }
     
@@ -220,5 +228,10 @@ public class PizzeriaController {
     	
     	return "redirect:/pizzeria";
     }
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(List.class, "groups", new GroupCollectionEditor(pizzeriaService));
+	}
 
 }

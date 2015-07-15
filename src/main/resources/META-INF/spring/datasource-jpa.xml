@@ -56,6 +56,7 @@
         <property name="packagesToScan">
         	<array>
         		<value>ba.ocean.jrea.domain.core</value>
+        		<value>ba.ocean.jrea.domain.structure</value>
         		<value>ba.ocean.pizzeria.domain</value>
         		<value>ba.ocean.pizzeria.behaviour</value>
         	</array>
@@ -83,4 +84,5 @@
     <jpa:repositories base-package="ba.ocean.pizzeria.service"
                       entity-manager-factory-ref="emf"
                       transaction-manager-ref="transactionManager"/>
+          
 </beans>

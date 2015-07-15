@@ -2,6 +2,7 @@ package ba.ocean.pizzeria.service;
 
 import java.util.List;
 
+import ba.ocean.jrea.domain.structure.Group;
 import ba.ocean.pizzeria.behaviour.IdentificationSetup;
 import ba.ocean.pizzeria.domain.Cash;
 import ba.ocean.pizzeria.domain.CashReceipt;
@@ -41,6 +42,10 @@ public interface PizzeriaService {
 	
 	List<CashReceipt> findAllCashReceipts();
 	CashReceipt save(CashReceipt cashReceipt);
+	
+	List<Group> findAllGroups();
+	Group findGroupById(int id);
+	Group save(Group group);
 	
 	List<IdentificationSetup> findAllIdentificationSetups();
 	IdentificationSetup save(IdentificationSetup identificationSetup);

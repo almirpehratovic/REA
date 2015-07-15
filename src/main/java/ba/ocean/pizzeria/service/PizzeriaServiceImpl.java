@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 
+import ba.ocean.jrea.domain.structure.Group;
 import ba.ocean.pizzeria.behaviour.IdentificationSetup;
 import ba.ocean.pizzeria.domain.Cash;
 import ba.ocean.pizzeria.domain.CashReceipt;
@@ -51,6 +52,9 @@ public class PizzeriaServiceImpl implements PizzeriaService{
 	
 	@Autowired
 	private IdentificationSetupRepository identificationSetupRepository;
+	
+	@Autowired
+	private GroupRepository groupRepository;
 
 
 	@Override
@@ -150,6 +154,24 @@ public class PizzeriaServiceImpl implements PizzeriaService{
 	@Override
 	public CashReceipt save(CashReceipt cashReceipt) {
 		return cashReceiptRepository.save(cashReceipt);
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public List<Group> findAllGroups() {
+		return Lists.newArrayList(groupRepository.findAll());
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public Group findGroupById(int id){
+		return groupRepository.findOne(id);
+	}
+
+
+	@Override
+	public Group save(Group group) {
+		return groupRepository.save(group);
 	}
 
 	@Override

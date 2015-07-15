@@ -13,8 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import ba.ocean.jrea.domain.structure.Group;
 
 /**
  * @author 		Almir Pehratovic
@@ -35,6 +40,8 @@ public class Agent implements Serializable{
 	
 	private List<Event> providerEvents = new ArrayList<Event>();
 	private List<Event> receiverEvents = new ArrayList<Event>();
+	
+	private List<Group> groups = new ArrayList<Group>();
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -82,6 +89,22 @@ public class Agent implements Serializable{
 
 	public void setReceiverEvents(List<Event> receiverEvents) {
 		this.receiverEvents = receiverEvents;
+	}
+	
+	@ManyToMany
+	@JoinTable(name="agent_group",joinColumns=@JoinColumn(name="agent_id"),inverseJoinColumns=@JoinColumn(name="group_id"))
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
+	}
+	
+	public void addGroup(Group group) {
+		if (!groups.contains(group)) {
+			groups.add(group);
+		}
 	}
 	
 }

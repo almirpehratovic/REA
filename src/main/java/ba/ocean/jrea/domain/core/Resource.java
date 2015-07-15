@@ -13,12 +13,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import ba.ocean.jrea.domain.structure.Group;
 
 /**
  * @author 		Almir Pehratovic
@@ -39,6 +45,8 @@ public class Resource implements Serializable{
 	private String unit;
 	
 	private List<Event> events = new ArrayList<Event>();
+	
+	private List<Group> groups = new ArrayList<Group>();
 	
 	public Resource(){}
 	
@@ -104,6 +112,22 @@ public class Resource implements Serializable{
 		}
 	}
 	
+	@ManyToMany
+	@JoinTable(name="resource_group",joinColumns=@JoinColumn(name="resource_id"),inverseJoinColumns=@JoinColumn(name="group_id"))
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
+	}
+	
+	public void addGroup(Group group) {
+		if (!groups.contains(group)) {
+			groups.add(group);
+		}
+	}
+
 	/**
 	 * Keeping stock quantity would be redudant, instead we can calculate it from
 	 * all decrement and increment events

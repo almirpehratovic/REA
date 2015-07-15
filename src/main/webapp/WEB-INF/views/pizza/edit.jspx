@@ -16,6 +16,7 @@
     <spring:message code="label_pizza_fat" var="labelPizzaFat" />
     <spring:message code="label_pizza_packaging" var="labelPizzaPackaging" />
     <spring:message code="label_pizza_quantity" var="labelPizzaQuantity" />
+    <spring:message code="label_pizza_groups" var="labelPizzaGroups" />
 
     <spring:eval expression="pizza.id == null ? labelPizzaNew:labelPizzaUpdate"
                  var="formTitle"/>
@@ -68,6 +69,16 @@
             </div>
             <p/>
             
+            <form:label path="groups">
+            	${labelPizzaGroups}
+            </form:label>
+            <form:select multiple="true" path="groups">
+            	<form:options items="${groups}" itemValue="id" itemLabel="name"/>
+            </form:select>
+            <div>
+                <form:errors path="groups" cssClass="errors" />
+            </div>
+            <p/>
 
             <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                 <span class="ui-button-text">Save</span>
